@@ -1,0 +1,43 @@
+name: Build Citizen Chunk
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Java 21 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Compilation
+        run: |
+          chmod +x ./gradlew
+          ./gradlew build --no-daemon
+
+      - name: Jar en artefact
+        uses: actions/upload-artifact@v4
+        with:
+          name: citizenchunk
+          path: build/libs/citizenchunk-*.jar
+
+      - name: Release GitHub
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: Citizen Chunk build ${{ github.run_number }}
+          files: build/libs/citizenchunk-*.jar
+          make_latest: true

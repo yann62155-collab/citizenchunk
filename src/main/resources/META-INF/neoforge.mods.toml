@@ -1,0 +1,28 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+license = "All Rights Reserved"
+
+[[mods]]
+modId = "citizenchunk"
+version = "${version}"
+displayName = "Citizen Chunk"
+authors = "Ishawakiii"
+description = '''
+Pré-génération des chunks du serveur Citizen, réservée aux admins.
+Lancer, mettre en pause, reprendre, arrêter et suivre l'avancement (pourcentage + temps restant).
+Mod côté serveur : les joueurs n'ont pas besoin de l'installer.
+'''
+
+[[dependencies.citizenchunk]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21.1.215,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.citizenchunk]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21.1]"
+ordering = "NONE"
+side = "BOTH"
